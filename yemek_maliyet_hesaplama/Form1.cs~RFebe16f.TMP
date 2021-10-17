@@ -1,0 +1,119 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Text;
+
+namespace yemek_maliyet_hesaplama
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        SqlConnection con;
+        SqlDataAdapter da;
+        SqlCommand cmd;
+        DataSet ds;
+
+        void griddoldur()
+        {
+            con = new SqlConnection("server=.; Initial Catalog=okul;Integrated Security=SSPI");
+            da = new SqlDataAdapter("Select *From Personal", con);
+            ds = new DataSet();
+            con.Open();
+            da.Fill(ds, "Personal");
+            dataGridView1.DataSource = ds.Tables["Personal"];
+            con.Close();
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            griddoldur();
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            cmd = new SqlCommand();
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandText = "insert into Personal(name,surname,reg_num,additional_indicators,not) values (" + textBox6.Text + ",'" + textBox2.Text + "','" + textBox4.Text + "','" + textBox5.Text + "','" + textBox3.Text + "')";
+            cmd.ExecuteNonQuery();
+            con.Close();
+            griddoldur();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            cmd = new SqlCommand();
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandText = "update Personal set name='" + textBox6.Text + "',surname='" + textBox2.Text + "',reg_num='" + textBox4.Text + "' where additional_indicators=" + textBox5.Text + "',not='" + textBox3.Text + "";
+            cmd.ExecuteNonQuery();
+            con.Close();
+            griddoldur();
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            cmd = new SqlCommand();
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandText = "delete from Personal where reg_num=" + textBox1.Text + "";
+            cmd.ExecuteNonQuery();
+            con.Close();
+            griddoldur();
+        }
+    }
+}
